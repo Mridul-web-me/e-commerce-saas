@@ -1,16 +1,23 @@
+'use client';
 import { AlignJustify, Bell, CreditCard, Cross, Keyboard, LayoutDashboard, LogOut, Mail, Menu, MessageSquare, Plus, PlusCircle, Settings, Sun, User, UserPlus, Users, X } from 'lucide-react';
 import Image from 'next/image';
-import React from 'react';
+import React, { useState } from 'react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from '../ui/dropdown-menu';
 import { ThemeToggle } from '../ThemeSwitcher/ThemeSwitcher';
 // import { ThemeSwitcher } from '../ThemeSwitcher';
 
-export const Navbar = () => {
+export const Navbar = ({ expandedDropdown, setExpandedDropdown, isSidebarOpen, setIsSidebarOpen }) => {
+  // const [expandedDropdown, setExpandedDropdown] = useState(null);
+  // const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   return (
-    <div className="flex border-b-2 items-center justify-between bg-white dark:bg-slate-900 text-slate-50 h-20 px-8 py-4 fixed top-0 w-full ml-60 z-50 pr-[20rem]">
+    <div className="flex border-b-2 items-center justify-between bg-white dark:bg-slate-900 text-slate-50 h-20 px-8 py-4 fixed top-0 w-full lg:ml-64 z-50 lg:pr-[20rem]">
       {/* Icon */}
-      <button>
+      {/* <button onClick={() => setShowSideBar(!showSideBar)} className="text-green-600">
         <AlignJustify />
+      </button> */}
+      <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className=" z-50 bg-green-600 p-2 rounded-md text-white">
+        <Menu className="w-5 h-5" />
       </button>
       {/* 3 icons */}
       <div className="flex items-center space-x-3 text-green-600">
