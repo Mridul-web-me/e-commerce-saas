@@ -4,7 +4,7 @@
 
 body {
   min-height: 100vh;
-background-color: rgba(205, 213, 97, 0.914);
+  background-color: rgba(205, 213, 97, 0.914);
 }
 
 @layer base {
@@ -70,4 +70,21 @@ background-color: rgba(205, 213, 97, 0.914);
   body {
     @apply bg-background text-foreground;
   }
+}
+/* Width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { AlertTriangle, BarChart, Bell, BookOpen, ClipboardList, Grid, Heart, Home, Image, List, LogOut, Mail, MapPin, PieChart, ShoppingCart, User, Calendar, ChevronDown, ChevronRight } from 'lucide-react';
+import { AlertTriangle, BarChart, Bell, BookOpen, ClipboardList, Grid, Heart, Home, Image, List, LogOut, Mail, MapPin, PieChart, ShoppingCart, User, Calendar, ChevronDown, ChevronRight, DollarSign } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '../ui/button';
 
@@ -15,10 +15,10 @@ const Sidebar = ({ expandedDropdown, setExpandedDropdown, isSidebarOpen, setIsSi
       title: 'Catalogue',
       icon: Grid,
       dropdown: [
-        { title: 'Category 1', url: '/catalogue/category-1' },
-        { title: 'Category 2', url: '/catalogue/category-2' },
-        { title: 'Category 3', url: '/catalogue/category-3' },
-        { title: 'Category 4', url: '/catalogue/category-4' }
+        { title: 'Attributes', url: '/dashboard/attributes' },
+        { title: 'Categories', url: '/dashboard/categories' },
+        { title: 'Coupons', url: '/dashboard/coupons' },
+        { title: 'Products', url: '/dashboard/products' }
       ]
     },
     { title: 'Widgets', url: '/under-constractions', icon: Grid },
@@ -32,6 +32,7 @@ const Sidebar = ({ expandedDropdown, setExpandedDropdown, isSidebarOpen, setIsSi
     { title: 'User Pages', url: '/dashboard/staff', icon: User },
     { title: 'Error Pages', url: '/under-constractions', icon: AlertTriangle },
     { title: 'E-Commerce', url: '/products', icon: ShoppingCart },
+    { title: 'Wallet', url: '/dashboard/wallet', icon: DollarSign },
     { title: 'E-mail', url: '/under-constractions', icon: Mail },
     { title: 'Calendar', url: '/under-constractions', icon: Calendar },
     { title: 'Todo List', url: '/todo-list', icon: ClipboardList },
@@ -47,9 +48,8 @@ const Sidebar = ({ expandedDropdown, setExpandedDropdown, isSidebarOpen, setIsSi
     <>
       {/* Sidebar */}
       <div
-        className={`${isSidebarOpen ? 'translate-x-0 top-20 ' : '-translate-x-full'} 
-        lg:translate-x-0 transition-transform duration-300 bg-white border-r-2  
-        dark:bg-slate-800 w-64 h-screen fixed left-0 lg:top-0 flex flex-col z-40`}
+        className={`${isSidebarOpen ? 'translate-x-0 top-20 ' : '-translate-x-full '} 
+        lg:translate-x-0 transition-transform duration-300 bg-white border-r- dark:bg-slate-800 w-64 h-screen fixed  left-0 lg:top-0 flex flex-col z-40`}
       >
         <Link className="mb-6 text-4xl font-bold dark:text-gray-50 text-black px-3 py-2" href="#">
           CroBoost
@@ -72,7 +72,7 @@ const Sidebar = ({ expandedDropdown, setExpandedDropdown, isSidebarOpen, setIsSi
                   {expandedDropdown === link.title && (
                     <div className="ml-6 space-y-2">
                       {link.dropdown.map((subLink, j) => (
-                        <Link key={j} href={subLink.url} className={`block px-4 py-1 border-l-2 ${pathname === subLink.url ? 'border-green-600 text-green-600' : 'border-transparent text-gray-600 dark:text-gray-300'} hover:text-green-600`}>
+                        <Link key={j} href={subLink.url} className={`block px-4 py-1 border-l-2 ${pathname === subLink.url ? 'border-green-600 text-green-600' : 'border-transparent text-gray-600 dark:text-gray-400'} hover:text-green-600`}>
                           {subLink.title}
                         </Link>
                       ))}
