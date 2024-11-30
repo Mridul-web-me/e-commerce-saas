@@ -25,6 +25,33 @@ const Page = ({ isLoading }) => {
   const [imageUrl, setImageUrl] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const markets =[
+    {
+      id:1,
+      title: 'Sproutes Farmer Market',
+    },
+    {
+      id:2,
+      title: 'Sproutes Farmer Market',
+    },
+    {
+      id:3,
+      title: 'Sproutes Farmer Market',
+    },
+    {
+      id:4,
+      title: 'Sproutes Farmer Market',
+    },
+    {
+      id:5,
+      title: 'Sproutes Farmer Market',
+    },
+    {
+      id:6,
+      title: 'Sproutes Farmer Market',
+    },
+  ]
+
   const handleSubmit = async e => {
     e.preventDefault();
 

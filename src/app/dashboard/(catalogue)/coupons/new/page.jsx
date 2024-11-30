@@ -4,18 +4,9 @@ import { FormHeader } from '@/components/FormComponents/FormHeader';
 import ImageInput from '@/components/FormComponents/ImageInput';
 import SubmitButton from '@/components/FormComponents/SubmitButton';
 import { makePostRequest } from '@/lib/apiRequest';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-
-// Helper function to generate a slug
-// const generateCouponCode = coupons => {
-//   return coupons
-//     .toLowerCase()
-//     .trim()
-//     .replace(/[^a-z0-9\s-]/g, '') // Remove non-alphanumeric characters
-//     .replace(/\s+/g, '-') // Replace spaces with hyphens
-//     .replace(/-+/g, '-'); // Collapse consecutive hyphens
-// };
 
 const Page = ({ isLoading }) => {
   const [couponTitle, setCouponTitle] = useState('');
@@ -23,7 +14,12 @@ const Page = ({ isLoading }) => {
   const [expiryDate, setExpiryDate] = useState('');
   const [errors, setErrors] = useState({ category: '', couponCode: '' });
   const [loading, setLoading] = useState(false);
+  const [isActive, setIsActive] = useState(false);
 
+  const router = useRouter();
+  function redirect() {
+    router.push('/dashboard/coupons');
+  }
   const handleSubmit = async e => {
     e.preventDefault();
 
@@ -45,33 +41,21 @@ const Page = ({ isLoading }) => {
     // const couponCode = generateCouponCode(coupons);
 
     // Prepare data object
+
     const data = {
       couponTitle,
       couponCode,
-      expiryDate
+      expiryDate,
+      isActive // Include toggle state
     };
-    makePostRequest(setLoading, '/api/coupons', data, 'Coupons');
+    makePostRequest(setLoading, '/api/coupons', data, 'Coupons', redirect);
     setCouponTitle('');
     setCouponCode('');
     setExpiryDate('');
+    setIsActive(false);
 
+    [isActive];
     console.log(data); // Log the data for debugging
-
-    // Example: Sending data to an API
-    // const response = await fetch('/api/categories', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(data)
-    // });
-
-    // if (response.ok) {
-    //   console.log('Category saved successfully!');
-    //   setLoading(true);
-    // } else {
-    //   console.error('Failed to save category.');
-    // }
   };
 
   return (
@@ -107,6 +91,17 @@ const Page = ({ isLoading }) => {
                   {errors.expiryDate && <p className="mt-1 text-sm text-red-500">{errors.expiryDate}</p>}
                 </div>
               </div>
+              <label className="inline-flex items-center cursor-pointer">
+                <input type="checkbox" className="sr-only peer" checked={isActive} onChange={e => setIsActive(e.target.checked)} />
+                <div
+                  className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 
+        peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full 
+        peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] 
+        after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full 
+        after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"
+                ></div>
+                <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">{isActive ? 'Active' : 'Draft'}</span>
+              </label>
             </div>
           </div>
         </div>
