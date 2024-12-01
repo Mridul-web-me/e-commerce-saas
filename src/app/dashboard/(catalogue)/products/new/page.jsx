@@ -6,6 +6,7 @@ import SubmitButton from '@/components/FormComponents/SubmitButton';
 import { makePostRequest } from '@/lib/apiRequest';
 import { useForm } from 'react-hook-form';
 import { useState, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 
 const generateSlug = title =>
   title
@@ -38,11 +39,16 @@ const InputTextArea = ({ id, label, type = 'text', error, register, validation }
   </div>
 );
 
-const Page = ({ isLoading, tags: initialTags = [] }) => {
+const Page = ({ initialTags = [] }) => {
   const [tags, setTags] = useState(initialTags);
   const [inputValue, setInputValue] = useState('');
   const [loading, setLoading] = useState(false);
   const [isActive, setIsActive] = useState(false);
+
+  const router = useRouter();
+  function redirect() {
+    router.push('/dashboard/coupons');
+  }
 
   const {
     register,
@@ -96,26 +102,22 @@ const Page = ({ isLoading, tags: initialTags = [] }) => {
   const onSubmit = useCallback(
     async data => {
       setLoading(true);
-      try {
-        const slug = generateSlug(data.productTitle);
-  
-        // Include the `isActive` state in the payload
-        const payload = { ...data, slug, isActive };
-  
-        console.log('Submitted Form Data:', payload);
-  
-        await makePostRequest(setLoading, '/api/products', payload, 'Category');
-  
-        // Reset form fields and state
-        setValue('productTitle', '');
-        setValue('description', '');
-        setValue('imageUrl', '');
-        setTags([]);
-        setValue('tags', []);
-        setIsActive(false);
-      } finally {
-        setLoading(false);
-      }
+      const slug = generateSlug(data.productTitle);
+
+      // Include the `isActive` state in the payload
+      const payload = { ...data, slug, isActive };
+
+      console.log('Submitted Form Data:', payload);
+
+      await makePostRequest(setLoading, '/api/products', payload, 'Category');
+
+      // Reset form fields and state
+      setValue('productTitle', '');
+      setValue('description', '');
+      setValue('imageUrl', '');
+      setTags([]);
+      setValue('tags', []);
+      setIsActive(false);
     },
     [setValue, isActive] // Add `isActive` to the dependency array
   );

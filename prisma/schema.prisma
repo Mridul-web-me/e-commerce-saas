@@ -24,3 +24,59 @@ model Coupons {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
+model Products {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  category          String
+  description       String
+  imageUrl          String
+  isActive          Boolean
+  productBarcode    String
+  productPrice      String
+  productSKU        String
+  productSellPrice  String
+  productTitle      String
+  slug              String
+  tags              String[]
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+// model Product {
+//   id                String   @id @default(auto()) @map("_id") @db.ObjectId
+//   category          String
+//   description       String
+//   imageUrl          String
+//   isActive          Boolean
+//   productBarcode    String
+//   productPrice      Float
+//   productSKU        String
+//   productSellPrice  Float
+//   productTitle      String
+//   slug              String
+//   tags              String[]
+//   createdAt         DateTime @default(now())
+//   updatedAt         DateTime @updatedAt
+// }
+
+
+
+model Categories {
+    id          String @id @default(auto()) @map("_id") @db.ObjectId
+    category       String
+    slug        String
+    imageUrl    String
+    description String
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+}
+
+
+
+
+
+
+
+
+
+
